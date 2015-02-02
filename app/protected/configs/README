@@ -1,0 +1,23 @@
+In Configs you will find Class dependency configurations
+
+They are simple PHP arrays returned with the `return` statement.
+
+The array attribute `di` is read from the Dependency Manager and configures the
+component. It is an array with Interface aliases or named dependencies 
+(`@NamedDependencyName` not available atm). The Values behind the keys are 
+arrays with at least a `class` attribute. the optional 'scope' attribute can
+be used to define the scope of the injected component. For more info on scopes
+check out the ComponentScopes enum. 
+
+List of required dependency attributes:
+ - `class` an alias to a class implementing the `interface`
+
+List of optional dependency attributes:
+ - `scope` a value from the ComponentScopes enum
+ - `attributes` an array of Virtual Fields and values. Virtual fields are setter
+   names without the 'set' string. Appropriate setter methods must be 
+   implemented
+ - `working_name` a name with which the Component can be accessed by its 
+   dependant. The default is to create the getter by removing the `I` from the
+   title of the dependency's defining interface and add the `get` prefix to it.
+   if Working name is given then the getter will become get{Working_Name}.

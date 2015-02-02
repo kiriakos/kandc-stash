@@ -1,0 +1,57 @@
+body
+{
+	text-align: center;
+}
+
+#navigation_dirs ul, 
+#navigation_dirs ul li div
+{ 
+    padding: 0;
+    margin: 0;
+}
+
+#navigation_dirs ul li, 
+#navigation_dirs ul li div
+{ 
+    display: inline;
+}
+
+
+#navigation_dirs ul li div
+{
+    height: 1em;
+}
+
+#navigation_assets 
+{ 
+    position: relative;     
+}
+
+#navigation_assets a
+{ 
+    position: absolute;
+    margin: 0;
+}
+
+#navigation_assets a.asset_next
+{ 
+    right:0; 
+    height:100% 
+}
+
+#navigation_assets a.asset_prev
+{ 
+    left:0; 
+    height:100% 
+}
+
+a.button
+{
+	background-color: transparent !important;
+	background-image: none !important;
+	border-radius:0;
+	border: none !important;
+	font-size: 1.4em;
+	padding:0.4em;
+}
+
