@@ -52,9 +52,17 @@ implements IFileBrowser
         }
         
         $files = array();
+        $assets = array();
         $type = IFileSystemAsset::NODE_TYPE_BYTESTREAM;
         
         while( ($file = readdir($this->_directory_pointer)) !== FALSE )
+        {
+            $files[] = $file;
+        }
+        
+        sort($files);
+        
+        foreach($files as $file)
         {
             $asset_path = $this->getCurrentPath(). DIRECTORY_SEPARATOR. $file;
             
@@ -65,12 +73,12 @@ implements IFileBrowser
             }
             elseif(!is_dir($asset_path))
             {
-                $files[] = $this->createAsset($file, $asset_path, $type, count($files));
+                $assets[] = $this->createAsset($file, $asset_path, $type, 
+                        count($assets));
             }
         }
-        sort($files);
         
-        return $files;
+        return $assets;
     }
     
     /**
@@ -93,9 +101,17 @@ implements IFileBrowser
         }
         
         $nodes = array();
+        $assets = array();
         $type = IFileSystemAsset::NODE_TYPE_STRUCTURE;
         
         while( ($node = readdir($this->_directory_pointer)) !== FALSE )
+        {
+            $nodes[] = $node;
+        }
+        
+        sort($nodes);
+        
+        foreach($nodes as $node)
         {
             $path = $this->getCurrentPath(). DIRECTORY_SEPARATOR. $node;
             
@@ -109,12 +125,13 @@ implements IFileBrowser
                 continue;
             }
             elseif(is_dir($path))
-            {    
-                $nodes[] = $this->createAsset($node, $path, $type, count($nodes));
+            {
+                $assets[] = $this->createAsset($node, $path, $type, 
+                        count($assets));
             }
         }
         
-        return $nodes;   
+        return $assets;
     }
     
     /**
@@ -251,6 +268,12 @@ implements IFileBrowser
         return $this->getNthOfList($this->getSubs(), $n);
     }
     
+    /**
+     * 
+     * @param type $list
+     * @param type $n
+     * @return type
+     */
     public function getNthOfList($list, $n)
     {
         if(count($list) >= $n)

@@ -16,7 +16,8 @@
             ?>
                 <a class="asset_prev button"
                    href="<?php echo $asset_url;?>"
-                   >Prev (<?php echo $asset_index; ?>)
+                   >
+                        Prev (<?php echo $asset_index; ?>)
                 </a>
             <?php
             unset($asset_url);
@@ -29,7 +30,8 @@
             ?>
                 <a class="asset_next button"
                    href="<?php echo $asset_url;?>"
-                   >Next (<?php echo count($files) - $asset_index - 1; ?>)
+                   >
+                        Next (<?php echo count($files) - $asset_index - 1; ?>)
                 </a>
             <?php
             unset($asset_url);

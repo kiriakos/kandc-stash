@@ -1,4 +1,4 @@
-app/.htaccess
-/app/.htaccess
 /app/assets/*
+/app/images/*
+/app/thumbnails/*
 /ide/kiriakos-netbeans/kandc.c/nbproject/private/

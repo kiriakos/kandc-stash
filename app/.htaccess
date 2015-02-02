@@ -1,0 +1,5 @@
+RewriteEngine on
+
+# and rewrite the path to go to index.php 
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule . index.php

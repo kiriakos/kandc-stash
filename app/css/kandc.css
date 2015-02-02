@@ -1,8 +1,24 @@
 body
 {
-	text-align: center;
+    text-align: center;
+    
 }
 
+/* overrides from base.css */
+a, a:visited, a:active{
+    color:gray
+}
+h1, h2, h3, h4, h5, h6
+{
+    font-family: "HelveticaNeue", "Helvetica Neue", Helvetica, sans-serif;
+    font-weight: lighter;
+}
+
+/* Touch based OS hot zone on top of screen should be catered for */
+#navigation_dirs
+{
+    margin-top: 1em;
+}
 #navigation_dirs ul, 
 #navigation_dirs ul li div
 { 
@@ -22,36 +38,88 @@ body
     height: 1em;
 }
 
+#asset_content_container
+{
+    position: relative;
+    
+}
 #navigation_assets 
 { 
-    position: relative;     
+    position: absolute;
+    top:0;
+    bottom:0;
+    left:0;
+    right:0;
 }
 
 #navigation_assets a
 { 
     position: absolute;
     margin: 0;
+    padding:0;
+    padding-top: 35%;
+}
+
+#navigation_assets a{
+    font-size: 1.5em;
+    font-weight: lighter;
+    -webkit-animation: hide-asset-navigation 2s;
+    color: transparent;
+    background: transparent;
+}
+
+#navigation_assets a:hover
+{
+    background: rgba(255,255,255, 0.5) !important;
+    color: grey;    
 }
 
 #navigation_assets a.asset_next
 { 
+    top:0;
+    bottom:0;
     right:0; 
-    height:100% 
+    left:75%;
 }
 
 #navigation_assets a.asset_prev
 { 
+    top:0;
+    bottom:0;
     left:0; 
-    height:100% 
+    right: 75%;
 }
 
-a.button
+/* Override of base.css 130 */
+.button,
+button,
+input[type="submit"],
+input[type="reset"],
+input[type="button"]
 {
-	background-color: transparent !important;
-	background-image: none !important;
-	border-radius:0;
-	border: none !important;
-	font-size: 1.4em;
-	padding:0.4em;
+    text-shadow: none;
+    background-color: transparent !important;
+    background-image: none !important;
+    border-radius:0;
+    border: none !important;
+    font-size: 1.4em;
+    font-weight: lighter;
+    padding:0.4em;  
+    color: grey;
 }
 
+/* Animations */
+@-webkit-keyframes hide-asset-navigation {
+    0%{
+        background: rgba(255,255,255, 0.5);
+        color: grey;
+    }
+    25%{
+        background: rgba(255,255,255, 0.5);
+        color: grey;
+    }
+    100%{
+        background: rgba(255,255,255, 0.0);
+        color: transparent;
+    }
+}
