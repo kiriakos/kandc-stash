@@ -16,7 +16,6 @@ implements IController
         $this->getPathManager()->importClass($this->getDefaultActionAlias());
     }
     
-    
     public function createModel() 
     {
         throw new Exception('Not implemented: createModel().', '000', '000');

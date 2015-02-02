@@ -39,4 +39,10 @@ implements IFilePublisher
         return $uri;
     }
 
+    public function publishForeignFile(\IFileSystemAsset $file, $path) 
+    {
+        
+        $destination
+    }
+
 }

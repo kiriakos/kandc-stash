@@ -31,4 +31,11 @@ interface IAction
      * @return boolean
      */
     public function run();
+    
+    /**
+     * Get the id of the controller.
+     * 
+     * The ID has to be unique, system wide.
+     */
+    public function getId();
 }

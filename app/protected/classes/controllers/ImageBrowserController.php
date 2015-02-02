@@ -64,4 +64,8 @@ implements IController
         return $this->getSanitizer()->sanitize($dir_link);
     }
 
+    public function getId() {
+        return "ImageBrowser";
+    }
+
 }

@@ -286,7 +286,7 @@ implements IFileBrowser
         }
     }
 
-    public function getBasePath() 
+    public function getBasePath()
     {
         return $this->_base_path;
     }

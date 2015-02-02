@@ -84,7 +84,7 @@ implements IRouter
 
     public function generateRoute(\IController $controller, \IAction $action)
     {
-        return get_class($controller). '/'. get_class($action);
+        return $controller->getId(). '/'. $action->getId();
     }
 
 }

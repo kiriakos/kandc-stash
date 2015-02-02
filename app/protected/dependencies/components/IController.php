@@ -32,4 +32,11 @@ interface IController
      */
     public function filter();
     
+    
+    /**
+     * Get the id of the controller.
+     * 
+     * The ID has to be unique, system wide.
+     */
+    public function getId();
 }

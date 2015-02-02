@@ -43,4 +43,21 @@ implements IAction
         return parent::getView();
     }
 
+    public function getId() 
+    {
+        if(is_array($this->_callback))
+        {
+            return str_replace("action", "", $this->_callback[1]);
+        }
+        elseif(is_string($this->_callback))
+        {
+            return $this->_callback;
+        }
+        else
+        {
+            throw new LogicException("Callback is neither array nor string!"
+                    . " What is happening?");
+        }
+    }
+
 }
