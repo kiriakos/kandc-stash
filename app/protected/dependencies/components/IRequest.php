@@ -19,6 +19,15 @@ interface IRequest
      * @param integer $filter
      */
     function getParameter($name, $filter = FILTER_UNSAFE_RAW);
+
+    /**
+     * @return mixed
+     */
+    function getServer($property);
+    function getRequestUri();
+    function getRequestPath();
+    function getScriptName();
+    
     
     /**
      * Get a request parameter or default to the or value

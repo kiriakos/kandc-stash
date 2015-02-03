@@ -29,9 +29,20 @@ implements IController
     public function findActionByName($name) 
     {
         $action = $this->getDM()->instanciate($this->getDefaultActionAlias());
-        $action->setCallback(array($this, 'action'.$name));
+        $method = 'action'.ucfirst($name);
+        $reflector = new ReflectionClass($this);
         
-        return $action;
+        if($reflector->hasMethod($method))
+        {
+            $action->setCallback(array($this, $method));
+            return $action;
+        }
+        else
+        {
+            return NULL;
+        }
+        
+        
     }
 
     /**
@@ -54,4 +65,18 @@ implements IController
         return TRUE;
     }
 
+    /**
+     * Redirect to a route
+     */
+    public function redirect($route, $params = NULL)
+    {
+        $parameter_string = "";
+        
+        if(is_array($params) && count($params))
+        {
+            $parameter_string = "/" . join("/", $params);
+        }
+        
+        header("Location: " . WEB_ROOT. $route. $parameter_string);
+    }
 }

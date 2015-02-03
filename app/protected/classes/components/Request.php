@@ -65,4 +65,29 @@ implements IRequest
         }
     }
 
+    public function getRequestPath()
+    {
+        return preg_filter("/\??".
+                str_replace("/", "\/", $this->getServer("QUERY_STRING"))."$/", 
+                "", $this->getServer("REQUEST_URI"));
+    }
+    
+    public function getRequestUri() {
+        return $this->getServer("REQUEST_URI");
+    }
+
+    public function getScriptName() {
+        return $this->getServer("SCRIPT_NAME");
+    }
+
+    /**
+     * Wrapper for filter_input SERVER
+     * 
+     * @param string $property
+     * @return mixed
+     */
+    public function getServer($property) 
+    {
+        return filter_input(INPUT_SERVER, $property);
+    }
 }

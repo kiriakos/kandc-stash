@@ -302,5 +302,40 @@ implements IFileBrowser
                 $this->getCurrentPath(). DIRECTORY_SEPARATOR. '..', 
                 IFileSystemAsset::NODE_TYPE_STRUCTURE, '0');
     }
+    
+    /**
+     * Adds a foreign file under the basepath.
+     * 
+     * @param string $current_path      The absolute path to a file.
+     * @param string $target_path       The realtive target path. (relative to
+     *                                  assets directory)
+     * @return \IFileSystemAsset        The asset created.
+     */
+    public function publishForeignFile($current_path, $target_path) 
+    {
+        $dest_path = $this->getBasePath() . DIRECTORY_SEPARATOR . $target_path;
+        $dest_dir = dirname($dest_path);
+        
+        if(!is_dir($dest_dir))
+        {
+            mkdir($dest_dir, 0775, TRUE);
+        }
+        
+        if(rename($current_path, $dest_path))
+        {
+            $this->setPath($target_path);
+            $files = $this->getFiles();
+        }
+        
+        foreach($files as $file)
+        {
+            if($file->getPath() == $dest_path)
+            {
+                return $file;
+            }
+        }
+        
+        return NULL;
+    }
 
 }

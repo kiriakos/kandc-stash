@@ -68,7 +68,7 @@ extends Component
     
     public function end()
     {
-        //do nothing;
+        exit(0);
     }
         
     public static function get()

@@ -67,5 +67,4 @@ implements IController
     public function getId() {
         return "ImageBrowser";
     }
-
 }

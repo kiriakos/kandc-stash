@@ -46,4 +46,9 @@ implements IController
         $path = APP_ROOT . DIRECTORY_SEPARATOR 
                 . rawurldecode(preg_filter("/\/\d+_\d+\/(.*)/", "\\1", $file));
     }
+
+    public function getId() {
+        return "Images";
+    }
+
 }

@@ -17,6 +17,7 @@ implements IView
         extract($render_data->getData());
         
         ob_start();
+        
         include $templates_path. DIRECTORY_SEPARATOR. 'view.php';
         
         return ob_get_clean();

@@ -63,6 +63,8 @@ abstract class ComponentBase
         $this->_dm = new DependencyManager($this);
         
         $this->getDM()->injectDependencies();
+        // Todo: make dependencies lazy loading!
+        //$this->getDM()->readDependencyConfiguration();
         
         if(method_exists($this, 'init'))
         {

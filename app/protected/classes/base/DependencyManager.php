@@ -140,7 +140,7 @@ extends ComponentHelper
     }
     
     /**
-     * Get the Working Name 
+     * Get the dependency Alias from the passed working name
      * 
      * @param string $working_name  The Working Name to look for
      * @return string               The alias 
@@ -181,6 +181,20 @@ extends ComponentHelper
         return $this->_dependency_configuration;
     }
     
+    /**
+     * Retrieves the component's dependency configuration. 
+     * 
+     * also includes all required Interfaces
+     */
+    public function readDependencyConfiguration()
+    {
+        $pm = $this->getComponent()->getPathManager();
+        
+        foreach($this->getDependencyConfiguration() as $interface => $cfg)
+        {
+            $pm->importInterface($interface);
+        }
+    }
     
     /**
      * Adds Components to the Component's dependency list

@@ -5,7 +5,7 @@ return array(
             'class' => 'components.util.FileIntrospector'
         ),
         'components.publishing.IFilePublisher' => array(
-            'class' => 'components.publishing.FilePublisher'
+            'class' => 'components.publishing.FilePublisher',
         )
     )
 );

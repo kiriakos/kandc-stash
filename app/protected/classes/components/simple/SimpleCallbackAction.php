@@ -47,11 +47,11 @@ implements IAction
     {
         if(is_array($this->_callback))
         {
-            return str_replace("action", "", $this->_callback[1]);
+            return lcfirst(str_replace("action", "", $this->_callback[1]));
         }
         elseif(is_string($this->_callback))
         {
-            return $this->_callback;
+            return lcfirst($this->_callback);
         }
         else
         {

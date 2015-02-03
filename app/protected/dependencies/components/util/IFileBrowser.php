@@ -81,4 +81,18 @@ interface IFileBrowser
      *  - openDirectory($relativa_path) to open a relative directory
      */
     public function isConnected();
+    
+    /**
+     * Publish a file to a web accessible path
+     * 
+     * The file system asset is put into the given path. The returned Uri 
+     * contains web access information.
+     * 
+     * @param string $current_path      The absolute path to a file.
+     * @param string $target_path       The realtive target path. (relative to
+     *                                  assets directory)
+     * @return \IFileSystemAsset        The asset created.
+     */
+    public function publishForeignFile($current_path, $target_path);
+    
 }

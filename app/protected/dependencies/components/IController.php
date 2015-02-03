@@ -39,4 +39,9 @@ interface IController
      * The ID has to be unique, system wide.
      */
     public function getId();
+    
+    /**
+     * Redirect to a route
+     */
+    public function redirect($route, $params = NULL);
 }

@@ -22,26 +22,88 @@ implements IRouter
         $this->getPathManager()->importClass('components.simple.SimpleController');
     }
     
+    private function parseAutoRoutable(\IRequest $request)
+    {
+        $route = preg_replace("@^/@", "", str_replace(WEB_ROOT, "", 
+                $request->getRequestPath()));
+        
+        if(!is_string($route))
+        {
+            return FALSE;
+        }
+        
+        $parts = $this->parseRoute($route);
+
+        if($parts[0] == "" || $parts[1] == "")
+        {
+            return FALSE;
+        }
+
+        try
+        { 
+            $controller = $this->findControllerByName($parts[0]);
+            $action = $controller->findActionByName($parts[1]);
+
+            if($action instanceof IAction 
+                    && $controller instanceof IController)
+            {
+                return $controller->getId() . "/" . $action->getId();
+            }        
+        }
+        catch(Exception $e)
+        {
+            return FALSE;
+        }
+    }
     
+    private $_custom_routes = array(
+        'images/images' => "images/\d+/.+",
+        'images/thumbnails' => "thumbnails/\d+/.+",
+    );
+    
+    /**
+     * Whether the route can be routed based on the request URI and $_custom_routes
+     * 
+     * @param \IRequest $request
+     * @return mixed
+     */
+    private function parseCustomRoutable(\IRequest $request)
+    {
+        foreach($this->_custom_routes as $route => $verify)
+        {
+            $matcher = str_replace('/', '\/', WEB_ROOT . '/' . $verify);
+            
+            if(preg_match("/$matcher/", $request->getRequestPath()) === 1)
+            {
+                return $route;
+            }
+        }
+        return FALSE;
+    }
+    
+    /**
+     * Populates the Controller and Action properties if the Router
+     * 
+     * @param \IRequest $request
+     */
     public function route(\IRequest $request)
     {
         $route = $request->getParameter('route');
         
         if(!$route)
         {
-            if(preg_match("/". str_replace("/", "\/", WEB_ROOT)
-                    . "\/(images|thumbnails)/", $_SERVER["REQUEST_URI"]))
-            {
-                $route = "images/". preg_replace("/". str_replace("/", "\/", WEB_ROOT)
-                    . "\/(images|thumbnails).*/", "\\1", $_SERVER["REQUEST_URI"]);
-            }
-            else 
-            {
-                $route = self::DEFAULT_ROUTE;
-            }
+            $route = $this->parseAutoRoutable($request);
         }
-        
-        list($controller, $action) = $this->parseRoute($route);
+        if(!$route)
+        {
+            $route = $this->parseCustomRoutable($request);
+        }
+        if(!$route)
+        {
+            $route = self::DEFAULT_ROUTE;
+        }
+    
+        list($controller, $action, $params) = $this->parseRoute($route);
         
         $this->_controller = $this->findControllerByName($controller);
         $this->_action = $this->_controller->findActionByName($action);
@@ -53,9 +115,10 @@ implements IRouter
      */
     private function parseRoute($route)
     {
-        list($controller, $action) = explode('/', $route);
+        $components = explode('/', $route);
         
-        return array(ucfirst($controller), ucfirst($action));
+        return array(ucfirst($components[0]), ucfirst($components[1]), 
+            array_slice($components, 2));
     }
     
     
@@ -85,6 +148,19 @@ implements IRouter
     public function generateRoute(\IController $controller, \IAction $action)
     {
         return $controller->getId(). '/'. $action->getId();
+    }
+
+    
+    public function generateRelativeUrl($route, $params = NULL) 
+    {
+        $relative = WEB_ROOT . "/" . $route;
+        
+        if(is_array($params) && count($params) > 0)
+        {
+            $relative .= "/" . join("/", array_values($params));
+        }
+        
+        return $relative;
     }
 
 }

@@ -23,4 +23,8 @@ implements IController
         return 'components.simple.SimpleCallbackAction';
     }
 
+    public function getId() {
+        return "Home";
+    }
+
 }
