@@ -4,8 +4,8 @@
 foreach($files as $file)
 {
     $id = "Thumbnail_".$file->getIndexInListing();
-    $url =  WEB_ROOT. "/". APP_INDEX_FILE. "?path=". $path_current. "&asset="
-            . ($file->getIndexInListing());
+    $url =  WEB_ROOT. "/". APP_INDEX_FILE. "?path=". rawurlencode($path_current)
+            . "&asset=". ($file->getIndexInListing());
     
     echo "<a id=\"$id\" href=\"$url\">";
     if($file->getFileIntrospector()->isImg())
@@ -19,8 +19,10 @@ foreach($files as $file)
             
         echo "<script>"
             . "$(function(){ "
-            . "     $('#$id img').attr('src', encodeURI('$url'.replace("
-            . "         /{WIDTH}/g, $('#$id img').width())))"
+            . "     var w = $('#$id img').width();"
+            . "     var e = $('#$id img');"
+            . "     var uri = '$url'.replace(/{WIDTH}/g, w);"
+            . "     nq.image(encodeURI(uri), e);"
             . "})"
             . "</script>";
     }
