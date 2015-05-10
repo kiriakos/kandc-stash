@@ -15,8 +15,6 @@
             <?php include $templates_path. DIRECTORY_SEPARATOR. 'asset.php'; ?>
         </div>
         
-        <?php include $templates_path. DIRECTORY_SEPARATOR. 'upload.php'; ?>
-
         <div id="title">
             <?php 
                     if($path_current)
@@ -25,6 +23,10 @@
                         echo "<h3>K and C's stash</h3>";
             ?>
         </div>
+        
+        <?php include $templates_path. DIRECTORY_SEPARATOR. 'thumbnails.php'; ?>
+        <?php include $templates_path. DIRECTORY_SEPARATOR. 'upload.php'; ?>
+
     </body>
 </html>
 

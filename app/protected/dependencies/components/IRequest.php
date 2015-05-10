@@ -40,4 +40,10 @@ interface IRequest
     function getSchema();
     function getVerb();
     function getCookie();
+    
+    /**
+     * Get an entry of the $_FILE array
+     * @param string $name
+     */
+    function getFile($name);
 }

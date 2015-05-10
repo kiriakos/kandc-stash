@@ -13,6 +13,12 @@ implements IController
         return 'components.simple.SimpleCallbackAction';
     }
     
+    
+    /**
+     * Creates a file.
+     * 
+     * 
+     */
     public function actionFile()
     {
         $request = $this->getRequest();
@@ -21,11 +27,18 @@ implements IController
         $fallback_path = $request->getParameter("fallback-path");
         $target_path = $submit_path . DIRECTORY_SEPARATOR . $file["name"];
         
-        $asset = $this->getFileBrowser()
-                ->publishForeignFile($file["tmp_name"], $target_path);
+        try
+        {
+            $asset = $this->getFileBrowser()
+                    ->publishForeignFile($file["tmp_name"], $target_path);
+        }
+        catch (BadMethodCallException $ex)
+        {
+            die($ex->getMessage());
+        }
         
         if($asset instanceof IFileSystemAsset)
-        {die("Succ");
+        {
             header("Location: ". WEB_ROOT . "/?path="
                     . rawurlencode($submit_path) . "&asset="
                     . $asset->getIndexInListing());

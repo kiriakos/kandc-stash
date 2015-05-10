@@ -9,6 +9,7 @@ extends Component
 implements IAction
 {
     private $_callback;
+    private $_parameters;
     
     public function setCallback(callable $callback)
     {
@@ -58,6 +59,14 @@ implements IAction
             throw new LogicException("Callback is neither array nor string!"
                     . " What is happening?");
         }
+    }
+
+    public function getParameters() {
+        return $this->_parameters;
+    }
+
+    public function setParameters($array) {
+        $this->_parameters = $array;
     }
 
 }

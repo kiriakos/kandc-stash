@@ -323,8 +323,12 @@ implements IFileBrowser
         
         if(rename($current_path, $dest_path))
         {
-            $this->setPath($target_path);
+            $this->setCurrentPath(dirname($target_path));
             $files = $this->getFiles();
+        }
+        else
+        {
+            $this->throwFileCopyException($current_path, $dest_path);
         }
         
         foreach($files as $file)
@@ -336,6 +340,23 @@ implements IFileBrowser
         }
         
         return NULL;
+    }
+    
+    private function throwFileCopyException($path, $dest)
+    {
+        $msg ="Could not rename $current_path to $dest_path!";
+        
+        if(!is_readable($path))
+        {
+            $msg .= "\nCurrent path: '$path' is not readable!";
+        }
+        
+        if(!is_writable($dest))
+        {
+            $msg .= "\nDestination path: '$dest' is not writable!";
+        }
+        
+        throw new BadMethodCallException($msg);
     }
 
 }

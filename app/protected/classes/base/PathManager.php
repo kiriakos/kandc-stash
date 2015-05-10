@@ -45,7 +45,15 @@ extends ComponentHelper
     
     public function importClass($alias)
     {
-        include_once $this->getPathOfAlias($alias, PathTypes::CLASS_FILE);
+        $file = $this->getPathOfAlias($alias, PathTypes::CLASS_FILE);
+        if(is_file($file))
+        {
+            include_once $file;
+        }
+        else
+        {
+            throw new BadMethodCallException("$alias doesn't map to a File!");
+        }
     }
     
     public function importInterface($alias)

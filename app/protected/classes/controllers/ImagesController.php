@@ -22,7 +22,6 @@ implements IController
         $file = preg_replace("/". str_replace("/", "\/", WEB_ROOT)
                     . "\/(images|thumbnails)/", "", $_SERVER["REQUEST_URI"]);
         
-        $destination = $_SERVER["REQUEST_URI"];
         $width = preg_filter("/\/(\d+)\/.*/", "\\1", $file);
         $path = APP_ROOT . DIRECTORY_SEPARATOR 
                 . rawurldecode(preg_filter("/\/\d+\/(.*)/", "\\1", $file));
@@ -30,10 +29,12 @@ implements IController
         $asset = $this->getFileSystemAsset();
         $asset->setPath($path);
         $image = $asset->getFileIntrospector()->assetize();
-        $file = $this->getImageResizer()->createImage($image, $width);
+        $created_file = $this->getImageResizer()->createImage($image, $width);
         
         header("Location: ". $this->getFilePublisher()
-                ->publishPathString($file)->getUri());
+                ->publishPathString($created_file)->getUri());
+        
+        Knc::get()->end();
     }
     
     public function actionThumbnails()
@@ -45,6 +46,16 @@ implements IController
         $height = preg_filter("/\/(\d+)_(\d+)\/.*/", "\\2", $file);
         $path = APP_ROOT . DIRECTORY_SEPARATOR 
                 . rawurldecode(preg_filter("/\/\d+_\d+\/(.*)/", "\\1", $file));
+        
+        $asset = $this->getFileSystemAsset();
+        $asset->setPath($path);
+        $image = $asset->getFileIntrospector()->assetize();
+        $created_file = $this->getImageResizer()->createCrop($image, $width, $height);
+        
+        header("Location: ". $this->getFilePublisher()
+                ->publishPathString($created_file)->getUri());
+        
+        Knc::get()->end();
     }
 
     public function getId() {

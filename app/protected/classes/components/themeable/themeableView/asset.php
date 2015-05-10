@@ -16,7 +16,7 @@
             
             echo "<img class=\"image\" width=\"100%\""
                 . " title=\"{$asset->getName()}\">";
-                //" src=\"{$asset->getFilePublisher()->publishCaller()->getUri()}\" />";
+                
             echo "<script>"
                 . "$(function(){ $('#asset img').attr('src', encodeURI('$url'.replace('{WIDTH}', "
                     . "$('#asset img').width()))) })"

@@ -210,8 +210,8 @@ implements IImageResizer
      * @return string
      * @throws Exception
      */
-    public function createCrop(\IImage $image, $width,$height, $coords, 
-            $rescale)
+    public function createCrop(\IImage $image, $width,$height, $coords = NULL, 
+            $rescale = NULL)
     {
         if($width > 1280)
         {
@@ -230,14 +230,21 @@ implements IImageResizer
         );
 
         $original_path = $image->getOriginalPath();
-
+        $target_path = $image->getThumbnailPath($width, $height);
+        $target_directory = dirname($target_path);
+        
         if(!file_exists($original_path))
         {
             throw new Exception("The file $original_path does not exist!");
         }
 
+        if(!file_exists($target_directory) && !mkdir ($target_directory, 0755, TRUE))
+        {
+            throw new Exception("Could not make the directory: "
+                    . "'$target_directory'!");
+        }
         $jcropper = $this->getCropper();
-        $jcropper->thumbnailName = $this->getThumbnailPath($width, $height);
+        $jcropper->thumbnailName = $target_path;
         $jcropper->setImage($original_path);
 
         $thumbnail = $jcropper->crop($coords,$targetSize, $rescale);

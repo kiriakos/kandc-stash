@@ -58,6 +58,9 @@ extends ComponentBase
                 return $dependency;
             }
         }
+        
+        throw new BadMethodCallException("This instance of ". get_called_class()
+                . " does not implement the method: '$method'!");
     }
     
     /**

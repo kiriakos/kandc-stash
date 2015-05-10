@@ -67,9 +67,10 @@ implements IRequest
 
     public function getRequestPath()
     {
-        return preg_filter("/\??".
-                str_replace("/", "\/", $this->getServer("QUERY_STRING"))."$/", 
-                "", $this->getServer("REQUEST_URI"));
+        $query = $this->getServer("QUERY_STRING");
+        $escaped_query = str_replace("/", "\/", $query);
+        $filter = "/\??" . $escaped_query . "$/";
+        return preg_filter($filter, "", $this->getServer("REQUEST_URI"));
     }
     
     public function getRequestUri() {
@@ -90,4 +91,10 @@ implements IRequest
     {
         return filter_input(INPUT_SERVER, $property);
     }
+
+    public function getFile($name) 
+    {
+        return $_FILES[$name];
+    }
+
 }

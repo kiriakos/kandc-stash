@@ -22,7 +22,16 @@ implements IRouter
         $this->getPathManager()->importClass('components.simple.SimpleController');
     }
     
-    private function parseAutoRoutable(\IRequest $request)
+    /**
+     * Checks if the passed request is automaticaly routable.
+     * 
+     * Routable in this context is a request that can map to a controller/action
+     * combo based on the Request URI.
+     *  
+     * @param \IRequest $request
+     * @return mixed
+     */
+    public function parseAutoRoutable(\IRequest $request)
     {
         $route = preg_replace("@^/@", "", str_replace(WEB_ROOT, "", 
                 $request->getRequestPath()));
@@ -33,17 +42,17 @@ implements IRouter
         }
         
         $parts = $this->parseRoute($route);
-
-        if($parts[0] == "" || $parts[1] == "")
+        
+        if(!$parts[0] || !$parts[1])
         {
             return FALSE;
         }
-
+        
         try
-        { 
+        {    
             $controller = $this->findControllerByName($parts[0]);
             $action = $controller->findActionByName($parts[1]);
-
+            
             if($action instanceof IAction 
                     && $controller instanceof IController)
             {
@@ -52,13 +61,22 @@ implements IRouter
         }
         catch(Exception $e)
         {
-            return FALSE;
         }
+        
+        return FALSE;
     }
     
+    /**
+     * Custom routes
+     * 
+     * Map a route to the regex the should match it. The path to be matched 
+     * against is the request URIs path component minut the value of WEB_ROOT.
+     * 
+     * @var array
+     */
     private $_custom_routes = array(
         'images/images' => "images/\d+/.+",
-        'images/thumbnails' => "thumbnails/\d+/.+",
+        'images/thumbnails' => "thumbnails/\d+_\d+/.+",
     );
     
     /**
@@ -67,7 +85,7 @@ implements IRouter
      * @param \IRequest $request
      * @return mixed
      */
-    private function parseCustomRoutable(\IRequest $request)
+    public function parseCustomRoutable(\IRequest $request)
     {
         foreach($this->_custom_routes as $route => $verify)
         {
@@ -82,11 +100,12 @@ implements IRouter
     }
     
     /**
-     * Populates the Controller and Action properties if the Router
+     * Processes a request into a controller/action route
      * 
      * @param \IRequest $request
+     * @return string
      */
-    public function route(\IRequest $request)
+    private function processRequestToRoute(\IRequest $request)
     {
         $route = $request->getParameter('route');
         
@@ -102,25 +121,49 @@ implements IRouter
         {
             $route = self::DEFAULT_ROUTE;
         }
-    
-        list($controller, $action, $params) = $this->parseRoute($route);
         
-        $this->_controller = $this->findControllerByName($controller);
-        $this->_action = $this->_controller->findActionByName($action);
+        return $this->parseRoute($route);
     }
     
     /**
-     * Returns an array of Controller Name and Action Name
+     * Populates the Controller and Action properties if the Router
+     * 
+     * @param \IRequest $request
+     */
+    public function route(\IRequest $request)
+    {
+        list($controller, $action, $params) = $this
+                ->processRequestToRoute($request);
+        
+        $this->_controller = $this->findControllerByName($controller);
+        $this->_action = $this->_controller->findActionByName($action);
+        $this->_action->setParameters($params);
+    }
+    
+    /**
+     * Returns an array of Controller Name and Action Name and parameters
+     * 
+     * In case of failure an array of type:
+     *      array("","", array())
+     * 
+     * is returned.
+     * 
      * @return array
      */
     private function parseRoute($route)
     {
         $components = explode('/', $route);
         
-        return array(ucfirst($components[0]), ucfirst($components[1]), 
-            array_slice($components, 2));
+        if(!is_array($components) || count($components) < 2)
+        {
+            return array("","", array());
+        }
+        else
+        {
+            return array(ucfirst($components[0]), ucfirst($components[1]), 
+                array_slice($components, 2));
+        }
     }
-    
     
     /**
      * Get a IControler instance given it's call name
@@ -128,13 +171,20 @@ implements IRouter
      * @param string
      * @return IController
      */
-    private function findControllerByName($controller)
+    public function findControllerByName($controller)
     {
+        if(!$controller)
+        {
+            throw new LogicException("Controller attributte canont be empty!");
+        }
+        
         $classname = $controller. "Controller";
         $alias = 'controllers.'. $classname;
         $this->getPathManager()->importClass($alias);
         
-        return new $classname($alias);
+        $ctrlr = new $classname($alias);
+        
+        return $ctrlr; 
     }
 
     public function getController() {

@@ -38,4 +38,22 @@ interface IAction
      * The ID has to be unique, system wide.
      */
     public function getId();
+    
+    /**
+     * Set the parameters pased with the request
+     * 
+     * This is used by the Router @ route(\IRequest).
+     * End users should be more interested in the getter of this.
+     * 
+     * @param array $array
+     */
+    public function setParameters($array);
+    
+    /**
+     * Get the request parameters set by the Router
+     * 
+     * @see setParameters
+     * @return $array
+     */
+    public function getParameters();
 }

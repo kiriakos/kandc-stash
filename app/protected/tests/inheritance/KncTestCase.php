@@ -57,7 +57,7 @@ extends PHPUnit_Framework_TestCase
      * interface. This will change when namespacing is included making the 
      * feature obsolete.
      * 
-     * @deprecated since version 0
+     * @deprecated since version 0.5
      * @return NULL
      */
     public function getInterface()
