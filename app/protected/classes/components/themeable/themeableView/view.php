@@ -25,6 +25,7 @@
         </div>
         
         <?php include $templates_path. DIRECTORY_SEPARATOR. 'thumbnails.php'; ?>
+        <hr />
         <?php include $templates_path. DIRECTORY_SEPARATOR. 'upload.php'; ?>
 
     </body>

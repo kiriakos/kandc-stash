@@ -12,7 +12,7 @@ nq = new function NetworkQueue(){
 
     this.QueItem = function QueItemConstr(operation, callback) {
         this.execute = function (systemCallback) {
-            operation(systemCallback());
+            operation(systemCallback);
             callback();
         };
     };
@@ -22,7 +22,7 @@ nq = new function NetworkQueue(){
     };
 
     this.process = function processQue(){
-        if (thisQue.running < thisQue.maxOperations
+        while (thisQue.running < thisQue.maxOperations
                 && thisQue.queue.length)
         {
             var op = thisQue.queue.shift();
@@ -30,23 +30,23 @@ nq = new function NetworkQueue(){
             
             op.execute(function () {
                 thisQue.running--;
-            });
-            
-            
+            });   
         }
     };
 
     this.image = function queImage(url, element){
         this.que(
                 function loadImage(clb) {
+                    console.log(url);
                     element.attr('src', url);
                     element.load(clb);
                 },
                 function validate() {
+                    
                     //console.log("loading" + url);
                 });
     };
     
     thisQue = this;
-    setInterval(this.process, 50);
+    setInterval(this.process, 500);
 };

@@ -123,3 +123,9 @@ input[type="button"]
         color: transparent;
     }
 }
+
+#thumbnail-preview > a{
+    float: left;
+    width: 33%;
+    /*overflow: hidden;*/
+}

@@ -14,19 +14,20 @@ foreach($files as $file)
                 ->getThumbnailPath("{WIDTH}","{WIDTH}");
         $url = $file->getFilePublisher()->publishPathString($path)->getUri();
 
-        echo "<img class=\"thumbnail\" width=\"20%\""
+        echo "<img class=\"thumbnail\""
             . " title=\"{$file->getName()}\">";
             
         echo "<script>"
             . "$(function(){ "
             . "     var w = $('#$id img').width();"
             . "     var e = $('#$id img');"
+            . "     $('#$id').height(w);"
             . "     var uri = '$url'.replace(/{WIDTH}/g, w);"
             . "     nq.image(encodeURI(uri), e);"
             . "})"
             . "</script>";
     }
-    echo "<h6>{$file->getName()}</h6>";
+    //echo "<h6>{$file->getName()}</h6>";
     echo "</a>";
 }
 
