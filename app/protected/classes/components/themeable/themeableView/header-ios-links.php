@@ -5,4 +5,4 @@
 
 <!-- Load scripts. -->
 <script type="text/javascript" src="./javascript/jquery.min.js"></script>
-<script type="text/javascript" src="./javascript/links.js"></script>
+<script type="text/javascript" src="./javascript/links.js?version=2"></script>
