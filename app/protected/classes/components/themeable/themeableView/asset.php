@@ -13,6 +13,10 @@
                     ->getImagePath("{WIDTH}");
             $url = $asset->getFilePublisher()->publishPathString($path)
                     ->getUri();
+            $download_path = WEB_ROOT . "/download/file?file=" 
+                    . $asset->getFilePublisher()
+                            ->publishCaller()
+                            ->getUri();
             
             echo "<img class=\"image\" width=\"100%\""
                 . " title=\"{$asset->getName()}\">";
@@ -21,8 +25,14 @@
                 . "$(function(){ $('#asset img').attr('src', encodeURI('$url'.replace('{WIDTH}', "
                     . "$('#asset img').width()))) })"
                     . "</script>";
+            echo "<h4><a href=\"$download_path\">";
+            echo "{$asset->getName()}";
+            echo "</a></h4>";
         }
-        echo "<h4>{$asset->getName()}</h4>";
+        else
+        {
+            echo "<h4>{$asset->getName()}</h4>";
+        }
     }
     elseif(is_null($asset))
     {

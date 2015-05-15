@@ -19,7 +19,7 @@ foreach($files as $file)
             
         echo "<script>"
             . "$(function(){ "
-            . "     var w = $('#$id img').width();"
+            . "     var w = $('#$id').width();"
             . "     var e = $('#$id img');"
             . "     $('#$id').height(w);"
             . "     var uri = '$url'.replace(/{WIDTH}/g, w);"

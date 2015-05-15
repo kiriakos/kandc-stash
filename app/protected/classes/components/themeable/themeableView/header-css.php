@@ -3,7 +3,7 @@
 <link rel="stylesheet" href="css/base.css">
 <link rel="stylesheet" href="css/skeleton.css">
 <link rel="stylesheet" href="css/layout.css">
-<link rel="stylesheet" href="css/kandc.css?version=2">
+<link rel="stylesheet" href="css/kandc.css?version=3">
 
 <!--[if lt IE 9]>
     <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
