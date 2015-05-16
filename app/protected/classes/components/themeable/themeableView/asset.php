@@ -25,7 +25,7 @@
                 . "$(function(){ $('#asset img').attr('src', encodeURI('$url'.replace('{WIDTH}', "
                     . "$('#asset img').width()))) })"
                     . "</script>";
-            echo "<h4><a href=\"$download_path\">";
+            echo "<h4><a href=\"mailto:webapps@apple.com?subject=Copy%20Link&body=https://kindstudios.gr$download_path\">";
             echo "{$asset->getName()}";
             echo "</a></h4>";
         }
