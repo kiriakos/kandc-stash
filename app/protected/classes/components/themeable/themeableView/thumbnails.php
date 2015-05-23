@@ -18,13 +18,7 @@ foreach($files as $file)
             . " title=\"{$file->getName()}\">";
             
         echo "<script>"
-            . "$(function(){ "
-            . "     var w = $('#$id').width();"
-            . "     var e = $('#$id img');"
-            . "     $('#$id').height(w);"
-            . "     var uri = '$url'.replace(/{WIDTH}/g, w);"
-            . "     nq.image(encodeURI(uri), e);"
-            . "})"
+            . "window.thumbnails.configure('$id', '$url');"
             . "</script>";
     }
     //echo "<h6>{$file->getName()}</h6>";

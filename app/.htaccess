@@ -3,3 +3,10 @@ RewriteEngine on
 # and rewrite the path to go to index.php 
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteRule . index.php
+
+# enable expirations
+ExpiresActive On
+# expire GIF images after a month in the client's cache
+ExpiresByType image/gif "access plus 1 month"
+ExpiresByType image/jpeg "access plus 5 days"
+ExpiresByType image/png "access plus 5 days"

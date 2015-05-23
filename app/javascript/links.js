@@ -6,17 +6,21 @@ $( document ).on(
     "a",
     function( event ){
  
-        // Stop the default behavior of the browser, which
-        // is to change the URL of the page.
-        event.preventDefault();
- 
         // Manually change the location of the page to stay in
         // "Standalone" mode and change the URL at the same time.
         var anchor = $( event.target );
+        
         if(anchor.attr( "href" ) === undefined){
             anchor = anchor.parent("a");
         }
-        location.href = anchor.attr( "href" );
+        
+        if(anchor.attr( "target" ) !== "_blank"){
+ 
+            // Stop the default behavior of the browser, which
+            // is to change the URL of the page.
+            event.preventDefault();
+            location.href = anchor.attr( "href" );
+        }
  
     }
 );

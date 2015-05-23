@@ -36,17 +36,16 @@ nq = new function NetworkQueue(){
 
     this.image = function queImage(url, element){
         this.que(
-                function loadImage(clb) {
+                function loadImage(callback) {
                     console.log(url);
                     element.attr('src', url);
-                    element.load(clb);
+                    element.load(callback);
                 },
                 function validate() {
-                    
                     //console.log("loading" + url);
                 });
     };
     
-    thisQue = this;
-    setInterval(this.process, 500);
+    var thisQue = this;
+    setInterval(this.process, 15);
 };
