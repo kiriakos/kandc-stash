@@ -1,0 +1,15 @@
+/*
+    Thumbail preview
+
+    Created on : 23-May-2015, 18:15:29
+    Author     : kiriakos
+*/
+
+#thumbnail-preview{
+    line-height: 0;
+}
+
+#thumbnail-preview > a{
+    display: inline-block;
+    overflow: hidden;
+}

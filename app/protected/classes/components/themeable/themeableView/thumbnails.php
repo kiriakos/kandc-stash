@@ -15,13 +15,15 @@ foreach($files as $file)
         $url = $file->getFilePublisher()->publishPathString($path)->getUri();
 
         echo "<img class=\"thumbnail\""
-            . " title=\"{$file->getName()}\">";
+            . " title=\"{$file->getName()}\" />";
             
         echo "<script>"
             . "window.thumbnails.configure('$id', '$url');"
             . "</script>";
     }
-    //echo "<h6>{$file->getName()}</h6>";
+    else {
+        echo "<h6>{$file->getName()}</h6>";
+    }
     echo "</a>";
 }
 

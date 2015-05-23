@@ -1,0 +1,118 @@
+/*
+    Navigation module and navigation widgets.
+
+    this only covers formal navigation items, not navigation via 
+    widget actions like thumbnails or upload.
+
+    Created on : 23-May-2015, 18:11:32
+    Author     : kiriakos
+*/
+
+/* overrides */
+/* Override of base.css 130 */
+.button,
+button,
+input[type="submit"],
+input[type="reset"],
+input[type="button"]
+{
+    text-shadow: none;
+    background-color: transparent !important;
+    background-image: none !important;
+    border-radius:0;
+    border: none !important;
+    font-size: 1.4em;
+    font-weight: lighter;
+    padding:0.4em;  
+    color: grey;
+}
+
+
+/* horizontal navigation (directory structure) */
+#navigation_dirs
+{
+    margin-top: 1em;
+}
+#navigation_dirs ul, 
+#navigation_dirs ul li div
+{ 
+    padding: 0;
+    margin: 0;
+}
+
+#navigation_dirs ul li, 
+#navigation_dirs ul li div
+{ 
+    display: inline;
+}
+
+
+#navigation_dirs ul li div
+{
+    height: 1em;
+}
+
+/* vertical navigation (assets inside directories) */
+#navigation_assets 
+{ 
+    position: absolute;
+    top:0;
+    bottom:2.5em;
+    left:0;
+    right:0;
+}
+
+#navigation_assets a
+{ 
+    position: absolute;
+    margin: 0;
+    padding:0;
+    padding-top: 35%;
+}
+
+#navigation_assets a{
+    font-size: 1.5em;
+    font-weight: lighter;
+    -webkit-animation: hide-asset-navigation 2s;
+    color: transparent;
+    background: transparent;
+}
+
+#navigation_assets a:hover
+{
+    background: rgba(255,255,255, 0.5) !important;
+    color: grey;    
+}
+
+#navigation_assets a.asset_next
+{ 
+    top:0;
+    bottom:0;
+    right:0; 
+    left:75%;
+}
+
+#navigation_assets a.asset_prev
+{ 
+    top:0;
+    bottom:0;
+    left:0; 
+    right: 75%;
+}
+
+/* Animations */
+@-webkit-keyframes hide-asset-navigation {
+    0%{
+        background: rgba(255,255,255, 0.5);
+        color: grey;
+    }
+    25%{
+        background: rgba(255,255,255, 0.5);
+        color: grey;
+    }
+    100%{
+        background: rgba(255,255,255, 0.0);
+        color: transparent;
+    }
+}
+

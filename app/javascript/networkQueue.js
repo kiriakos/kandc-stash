@@ -8,7 +8,8 @@
 nq = new function NetworkQueue(){
     this.queue = [];
     this.running = 0;
-    this.maxOperations = 6;
+    this.maxOperations = 4; // 6 for production 
+    this.interval = 10; // 20 for production
 
     this.QueItem = function QueItemConstr(operation, callback) {
         this.execute = function (systemCallback) {
@@ -47,5 +48,5 @@ nq = new function NetworkQueue(){
     };
     
     var thisQue = this;
-    setInterval(this.process, 15);
+    setInterval(this.process, this.interval);
 };

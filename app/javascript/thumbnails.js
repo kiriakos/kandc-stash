@@ -9,12 +9,11 @@
     window.thumbnails.configure = function(id, url){
         
         var anchor = $('#' + id);
-        var width = anchor.width();
         var imgElement = anchor.children('img'); //$('#' + id + ' img');
-        anchor.height(width);
-        var uri = url.replace(/{WIDTH}/g, width);
+        var uri = url.replace(/{WIDTH}/g, Math.floor(anchor.parent().width()/5));
         nq.image(encodeURI(uri), imgElement);
-        
-        console.log(id,url,uri);
+        console.log.enable();
+        console.log(id,uri);
+        console.log.disable();
     };
 })();
