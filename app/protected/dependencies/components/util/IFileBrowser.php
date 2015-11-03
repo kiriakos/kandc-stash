@@ -95,4 +95,11 @@ interface IFileBrowser
      */
     public function publishForeignFile($current_path, $target_path);
     
+    /**
+     * Whether the file $target_path exists
+     * 
+     * @param string $target_path
+     * @return boolean
+     */
+    public function fileInPathExists($target_path);
 }

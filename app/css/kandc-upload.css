@@ -5,3 +5,16 @@
     Author     : kiriakos
 */
 
+form.upload{
+    
+}
+
+form.upload div input,
+form.upload div label{
+    display: inline;
+}
+
+form.upload div input[type=text]{
+    border: none;
+    
+}

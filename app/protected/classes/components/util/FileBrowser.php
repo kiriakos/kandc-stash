@@ -360,4 +360,15 @@ implements IFileBrowser
         throw new BadMethodCallException($msg);
     }
 
+    /**
+     * This implementation checks against the current path.
+     * 
+     * @param string $target_path
+     * @return boolean
+     */
+    public function fileInPathExists($target_path) {
+        $abs_path = $this->getCurrentPath(). DIRECTORY_SEPARATOR.  $target_path;
+        return file_exists($abs_path);
+    }
+
 }

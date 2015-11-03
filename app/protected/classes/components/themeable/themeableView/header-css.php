@@ -4,7 +4,7 @@
 <link rel="stylesheet" href="css/kandc.css?version=6">
 <link rel="stylesheet" href="css/kandc-navigation.css">
 <link rel="stylesheet" href="css/kandc-thumbnails.css">
-<link rel="stylesheet" href="css/kandc-upload.css">
+<link rel="stylesheet" href="css/kandc-upload.css?version=0">
 
 <!--[if lt IE 9]>
     <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>

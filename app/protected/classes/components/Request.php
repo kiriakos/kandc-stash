@@ -94,6 +94,19 @@ implements IRequest
 
     public function getFile($name) 
     {
+        if(!isset($_FILES[$name])){
+            throw new BadMethodCallException("No uploaded file named: $name !");
+        }
+        
+        $file = $_FILES[$name];
+        
+        if($file["error"] == 1){
+            throw new Exception("This file had an error. Have You uploaded a"
+                    . " file that was too big for Your setup? please validate"
+                    . " by checking php.ini's 'upload_max_filesize' and"
+                    . " 'post_max_size'.");
+        }
+        
         return $_FILES[$name];
     }
 
